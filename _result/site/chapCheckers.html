@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-palette="sky">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,36 +23,46 @@
         <ol>
           
           <li>
-            <a href="microdown-syntax.html">Microdown syntax</a>
+            <a href="chapSyntax.html"><span class="number">1</span> Microdown syntax</a>
             
           </li>
           
           <li>
-            <a href="less-known-features.html">Less known features</a>
+            <a href="chapReferences.html"><span class="number">2</span> Anchors, references and numbers</a>
             
           </li>
           
           <li>
-            <a href="extensions.html">Extensions</a>
+            <a href="less-known-features.html"><span class="number">3</span> Less known features</a>
+            
+          </li>
+          
+          <li>
+            <a href="extensions.html"><span class="number">4</span> Extensions</a>
             
           </li>
           
           <li class="current">
-            <a href="microdown-tools-checkers.html" aria-current="page">Microdown tools: Checkers</a>
+            <a href="chapCheckers.html" aria-current="page"><span class="number">5</span> Microdown tools: Checkers</a>
             
             <ol>
               
-              <li><a href="#references">References</a></li>
+              <li><a href="#references"><span class="number">5.1</span> References</a></li>
               
-              <li><a href="#code-snippet-validation">Code snippet validation</a></li>
+              <li><a href="#code-snippet-validation"><span class="number">5.2</span> Code snippet validation</a></li>
               
-              <li><a href="#version-drift-detection">Version drift detection</a></li>
+              <li><a href="#version-drift-detection"><span class="number">5.3</span> Version drift detection</a></li>
               
-              <li><a href="#an-architecture-to-plug-extra-analyses">An architecture to plug extra analyses.</a></li>
+              <li><a href="#an-architecture-to-plug-extra-analyses"><span class="number">5.4</span> An architecture to plug extra analyses.</a></li>
               
-              <li><a href="#conclusion">Conclusion</a></li>
+              <li><a href="#conclusion"><span class="number">5.5</span> Conclusion</a></li>
               
             </ol>
+            
+          </li>
+          
+          <li>
+            <a href="chapSite.html"><span class="number">6</span> Publishing a book as a web site</a>
             
           </li>
           
@@ -64,8 +74,9 @@
     <main id="content" class="page">
       
 
-<h2 id="microdown-tools-checkers">Microdown tools: Checkers</h2>
-<p>Microdown proposes several tools to help document writers. In this chapter, we present the one related to<br>book validation and the available checkers.</p>
+<h2><span class="number">5</span> Microdown tools: Checkers</h2><a id="chapCheckers"></a>
+<p>Microdown proposes several tools to help document writers. In this chapter, we present the one related to
+book validation and the available checkers.</p>
 
 <p>Three kinds exist</p>
 
@@ -76,7 +87,7 @@
 </ul>
 <p>Note that other tools are under development such as the help to hide method body automatically so that writers can write manuals where readers should provide answers.</p>
 
-<h3 id="references">References</h3>
+<h3 id="references"><span class="number">5.1</span> References</h3>
 <p>Microdown via the Pillar compilation chain offers the possibility to report:</p>
 
 <ul>
@@ -115,43 +126,45 @@
 	Figure 'figures/interpreter_variables.pdf' with anchor 'interpreterVariables' (in file /Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoBooks2/Booklet-PharoVirtualMachine/Part1-InterpreterAndBytecode/4-Interpreter/theInterpreter.md) is not referenced.
 	...</code></pre>
 
-<h3 id="code-snippet-validation">Code snippet validation</h3>
-<p>Microdown supports the automatic validation of code snippets.<br>The following snippets illustrate the points.</p>
+<h3 id="code-snippet-validation"><span class="number">5.2</span> Code snippet validation</h3>
+<p>Microdown supports the automatic validation of code snippets.
+The following snippets illustrate the points.</p>
 
-<p>Here the writer wants to make sure that the expression 3 + 4 returns the correct result 7. He tags the code and use the <code>>>></code> on a separate line.</p>
+<p>Here the writer wants to make sure that the expression 3 + 4 returns the correct result 7. He tags the code and use the <code>&gt;&gt;&gt;</code> on a separate line.</p>
 
 <pre><code>    ```example=true
 	3 + 4 
-	>>> 7
+	&gt;&gt;&gt; 7
 	```</code></pre>
 
 <p>He can also declare that a given expression is expected to cause a failure using the <code>expectedFailure</code> tag as follows.</p>
 
-<pre><code>```example=true&expectedFailure=true
+<pre><code>```example=true&amp;expectedFailure=true
 3 + 4 
->>> 12		
+&gt;&gt;&gt; 12		
 ```	</code></pre>
 
-<h3 id="version-drift-detection">Version drift detection</h3>
-<p>As an author, you may copy and paste a method definition from a Pharo class to your book.<br>Then the natural question that arises is whether that copy is still valid in a more recent version of the system.</p>
+<h3 id="version-drift-detection"><span class="number">5.3</span> Version drift detection</h3>
+<p>As an author, you may copy and paste a method definition from a Pharo class to your book.
+Then the natural question that arises is whether that copy is still valid in a more recent version of the system.</p>
 
 <p>Imagine that in class <code>A</code> you define the method <code>simpleCode</code>.</p>
 
-<pre><code>A>>simpleCode
+<pre><code>A&gt;&gt;simpleCode
 	"The comment of simpleCode"
 	
 	^ 100 slowFactorial</code></pre>
 
 <p>Imagine that you want to have this method definition in your document and that you want the checker to report if the method changes. You can do it using the <code>sync</code> key.</p>
 
-<pre><code>```sync=true&origin=MicMethodBodySyncTest>>#simpleCode
+<pre><code>```sync=true&amp;origin=MicMethodBodySyncTest&gt;&gt;#simpleCode
 simpleCode
 	"The comment of simpleCode"
 
 	^ 100 slowFactorial
 ```</code></pre>
 
-<h3 id="an-architecture-to-plug-extra-analyses">An architecture to plug extra analyses.</h3>
+<h3 id="an-architecture-to-plug-extra-analyses"><span class="number">5.4</span> An architecture to plug extra analyses.</h3>
 <p>Code blocks are often used to define extensions. The <code>MicCodeBlockValidator</code> defines a way to modularly define new analyses. To declare a new analysis is easy:</p>
 
 <ul>
@@ -159,12 +172,12 @@ simpleCode
 <li>This class should define a method <code>verify:</code> expecting a code block.</li>
 <li>Define a class method named <code>handleKey</code> that returns the key of the extension (<code>#sync</code> in the previous example).</li>
 </ul>
-<h3 id="conclusion">Conclusion</h3>
+<h3 id="conclusion"><span class="number">5.5</span> Conclusion</h3>
 <p>Microdown is more than a Markdown language. In addition, to be extensible and having nice features such as references or anchors,  it is a symbiotic markdown for Pharo. It gives authors of Pharo books a clear advantage with powerful extensions and tools that make them more efficient.</p>
 
       <nav class="pager" aria-label="Chapters">
         <a class="previous" rel="prev" href="extensions.html">← Extensions</a>
-        
+        <a class="next" rel="next" href="chapSite.html">Publishing a book as a web site →</a>
       </nav>
     </main>
   </div>

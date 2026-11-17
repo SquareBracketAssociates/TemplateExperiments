@@ -38,21 +38,30 @@
   font-display: swap;
 }
 
-/* ---------- Colors (light, then dark) ---------- */
+/* ---------- Colors ----------
+   Palettes: sky (default: light blue, orange highlights), sunset (orange, blue highlights), classic.
+   Each has a light and a dark variant. site.mustache writes the choice of pillar.conf on <html>:
+     data-palette="sky|sunset|classic"   (missing or empty: sky)
+     data-theme="light|dark"            (missing or empty: follow the reader's system)
+   --accent colors links and the current chapter; --highlight marks code, the current chapter and numbers. */
 
 :root {
-  --text: #1f2328;
-  --muted: #5d6670;
-  --background: #fdfcfa;
-  --surface: #f3f1ec;
-  --border: #dedad2;
-  --accent: #1d5fa8;
-  --accent-visited: #6b4aa0;
-  --code-background: #f4f2ed;
-  --note: #1d5fa8;
-  --important: #b5521b;
-  --warning: #a32d2d;
-  --tip: #2f7d4a;
+  color-scheme: light;
+
+  /* sky, light */
+  --text: #1b2733;
+  --muted: #5a6b7c;
+  --background: #fbfdff;
+  --surface: #eef5fb;
+  --border: #d5e3ee;
+  --accent: #1a73b8;
+  --accent-visited: #5b55b0;
+  --highlight: #e07b24;
+  --code-background: #f2f7fb;
+  --note: #1a73b8;
+  --important: #d06a17;
+  --warning: #c0392b;
+  --tip: #23845a;
 
   --measure: 72ch;
   --toc-width: 17rem;
@@ -60,8 +69,75 @@
   --code-font: "Roboto Mono", "SF Mono", Menlo, Consolas, monospace;
 }
 
+:root[data-palette="sunset"] {
+  --text: #2a2017;
+  --muted: #6f5f50;
+  --background: #fffaf4;
+  --surface: #fbeee1;
+  --border: #eddac6;
+  --accent: #b9570c;
+  --accent-visited: #8a4a8f;
+  --highlight: #2b86c8;
+  --code-background: #fcf4ea;
+  --note: #2b86c8;
+  --important: #b9570c;
+  --warning: #b3302a;
+  --tip: #2f7d4a;
+}
+
+:root[data-palette="classic"] {
+  --text: #1f2328;
+  --muted: #5d6670;
+  --background: #fdfcfa;
+  --surface: #f3f1ec;
+  --border: #dedad2;
+  --accent: #1d5fa8;
+  --accent-visited: #6b4aa0;
+  --highlight: #1d5fa8;
+  --code-background: #f4f2ed;
+  --note: #1d5fa8;
+  --important: #b5521b;
+  --warning: #a32d2d;
+  --tip: #2f7d4a;
+}
+
+/* Dark variants: they apply when the system is dark (unless the book forces light),
+   and when the book forces dark. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --text: #dde7f0;
+    --muted: #93a6b8;
+    --background: #0f1923;
+    --surface: #17242f;
+    --border: #273848;
+    --accent: #7cc3f0;
+    --accent-visited: #b4b2f2;
+    --highlight: #f4a259;
+    --code-background: #13202a;
+    --note: #7cc3f0;
+    --important: #f4a259;
+    --warning: #f08a80;
+    --tip: #77cfa0;
+  }
+
+  :root[data-palette="sunset"]:not([data-theme="light"]) {
+    --text: #f0e6db;
+    --muted: #b5a391;
+    --background: #1c1611;
+    --surface: #271e17;
+    --border: #3b2f24;
+    --accent: #f6a560;
+    --accent-visited: #dba8de;
+    --highlight: #82c2ef;
+    --code-background: #221a14;
+    --note: #82c2ef;
+    --important: #f6a560;
+    --warning: #f08a80;
+    --tip: #7cc994;
+  }
+
+  :root[data-palette="classic"]:not([data-theme="light"]) {
     --text: #e3e1dc;
     --muted: #a19d95;
     --background: #1b1c1e;
@@ -69,12 +145,62 @@
     --border: #3a3b3f;
     --accent: #7fb2ec;
     --accent-visited: #b9a0e3;
+    --highlight: #7fb2ec;
     --code-background: #232427;
     --note: #7fb2ec;
     --important: #e59a63;
     --warning: #ec8a8a;
     --tip: #7cc994;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #dde7f0;
+  --muted: #93a6b8;
+  --background: #0f1923;
+  --surface: #17242f;
+  --border: #273848;
+  --accent: #7cc3f0;
+  --accent-visited: #b4b2f2;
+  --highlight: #f4a259;
+  --code-background: #13202a;
+  --note: #7cc3f0;
+  --important: #f4a259;
+  --warning: #f08a80;
+  --tip: #77cfa0;
+}
+
+:root[data-theme="dark"][data-palette="sunset"] {
+  --text: #f0e6db;
+  --muted: #b5a391;
+  --background: #1c1611;
+  --surface: #271e17;
+  --border: #3b2f24;
+  --accent: #f6a560;
+  --accent-visited: #dba8de;
+  --highlight: #82c2ef;
+  --code-background: #221a14;
+  --note: #82c2ef;
+  --important: #f6a560;
+  --warning: #f08a80;
+  --tip: #7cc994;
+}
+
+:root[data-theme="dark"][data-palette="classic"] {
+  --text: #e3e1dc;
+  --muted: #a19d95;
+  --background: #1b1c1e;
+  --surface: #242528;
+  --border: #3a3b3f;
+  --accent: #7fb2ec;
+  --accent-visited: #b9a0e3;
+  --highlight: #7fb2ec;
+  --code-background: #232427;
+  --note: #7fb2ec;
+  --important: #e59a63;
+  --warning: #ec8a8a;
+  --tip: #7cc994;
 }
 
 /* ---------- Page ---------- */
@@ -116,6 +242,7 @@ body {
 
 .site-header {
   padding: 0.9rem 1.5rem;
+  border-top: 4px solid var(--accent);
   border-bottom: 1px solid var(--border);
 }
 
@@ -191,7 +318,29 @@ body {
 
 /* The chapter of the page (site.mustache marks it). */
 .toc .current > a {
+  display: inline-block;
+  margin-left: -0.75rem;
+  padding-left: 0.55rem;
+  border-left: 3px solid var(--highlight);
   color: var(--accent);
+  font-weight: 700;
+}
+
+/* Numbers of chapters, sections and figures (MicBookHTMLVisitor, site.mustache). */
+.number {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* In headers and captions, numbers take the highlight color. */
+h2 .number,
+h3 .number,
+h4 .number,
+figcaption .number {
+  color: var(--highlight);
+}
+
+figcaption .number {
   font-weight: 700;
 }
 
@@ -299,6 +448,18 @@ li + li {
   margin-top: 0.2rem;
 }
 
+/* Task items (- [ ] and - [x]): the checkbox replaces the bullet. */
+li:has(> input[type="checkbox"]:first-child) {
+  list-style: none;
+  margin-left: -1.3rem;
+}
+
+li > input[type="checkbox"]:first-child {
+  accent-color: var(--accent);
+  margin: 0 0.35rem 0 0;
+  vertical-align: -0.1em;
+}
+
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;
@@ -335,7 +496,7 @@ pre {
 }
 
 :not(pre) > code {
-  padding: 0.1em 0.35em;
+  padding: 0.1em 0.12em;
   border-radius: 4px;
   background: var(--code-background);
   overflow-wrap: break-word;
@@ -344,7 +505,7 @@ pre {
 pre {
   padding: 0.9rem 1.1rem;
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--highlight);
   border-radius: 4px;
   background: var(--code-background);
   line-height: 1.5;

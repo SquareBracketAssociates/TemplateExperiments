@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"{{#palette}} data-palette="{{.}}"{{/palette}}{{#theme}} data-theme="{{.}}"{{/theme}}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,11 +23,11 @@
         <ol>
           {{#children}}
           <li{{#isCurrent}} class="current"{{/isCurrent}}>
-            <a href="{{href}}"{{#isCurrent}} aria-current="page"{{/isCurrent}}>{{name}}</a>
+            <a href="{{href}}"{{#isCurrent}} aria-current="page"{{/isCurrent}}>{{#number}}<span class="number">{{.}}</span> {{/number}}{{name}}</a>
             {{#hasChildren}}
             <ol>
               {{#children}}
-              <li><a href="{{href}}">{{name}}</a></li>
+              <li><a href="{{href}}">{{#number}}<span class="number">{{.}}</span> {{/number}}{{name}}</a></li>
               {{/children}}
             </ol>
             {{/hasChildren}}

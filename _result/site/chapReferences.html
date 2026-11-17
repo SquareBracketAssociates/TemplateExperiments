@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="sky">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anchors, references and numbers</title>
+  <meta name="description" content="">
+  <meta name="author" content="The Pillar team">
+  <link rel="stylesheet" href="_support/html/css/book.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to the text</a>
+
+  <header class="site-header">
+    <a class="site-name" href="index.html">The Pillar Super BOD Book Archetype Using Microdown</a>
+  </header>
+
+  <div class="layout">
+
+    <nav class="toc" aria-label="Table of contents">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          
+          <li>
+            <a href="chapSyntax.html"><span class="number">1</span> Microdown syntax</a>
+            
+          </li>
+          
+          <li class="current">
+            <a href="chapReferences.html" aria-current="page"><span class="number">2</span> Anchors, references and numbers</a>
+            
+            <ol>
+              
+              <li><a href="#secAnchors"><span class="number">2.1</span> Anchors</a></li>
+              
+              <li><a href="#secReferences"><span class="number">2.2</span> References</a></li>
+              
+              <li><a href="#how-numbers-are-given"><span class="number">2.3</span> How numbers are given</a></li>
+              
+              <li><a href="#checking-references"><span class="number">2.4</span> Checking references</a></li>
+              
+            </ol>
+            
+          </li>
+          
+          <li>
+            <a href="less-known-features.html"><span class="number">3</span> Less known features</a>
+            
+          </li>
+          
+          <li>
+            <a href="extensions.html"><span class="number">4</span> Extensions</a>
+            
+          </li>
+          
+          <li>
+            <a href="chapCheckers.html"><span class="number">5</span> Microdown tools: Checkers</a>
+            
+          </li>
+          
+          <li>
+            <a href="chapSite.html"><span class="number">6</span> Publishing a book as a web site</a>
+            
+          </li>
+          
+        </ol>
+      </details>
+    </nav>
+
+
+    <main id="content" class="page">
+      
+
+<h2><span class="number">2</span> Anchors, references and numbers</h2><a id="chapReferences"></a>
+<p>Books refer to their own parts: <i>see Section 2.3</i>, <i>as shown in Figure 1.1</i>.
+Microdown separates the two sides of such a link.
+An <strong>anchor</strong> names an element, and a <strong>reference</strong> points to the anchor.
+When the book is built, chapters, sections, figures, listings and equations get numbers,
+and each reference shows the number of its target.
+You never write a number yourself, so numbers stay right when you move things around.</p>
+
+<h3><span class="number">2.1</span> Anchors</h3><a id="secAnchors"></a>
+<p>There are two ways to define an anchor.</p>
+
+<p>First, a line starting with <code>@</code> just after a header anchors the header.
+This section starts with:</p>
+
+<pre><code>### Anchors
+@secAnchors</code></pre>
+
+<p>Second, a figure, a listing or an equation takes an <code>anchor</code> argument, as shown in Chapter <a href="chapSyntax.html#chapSyntax">1</a>:</p>
+
+<pre><code>![The Pillar logo.%anchor=figPillar](figures/pillar.png)
+
+  ```pharo|anchor=lstZinc
+  ...
+  ```
+
+$$ % anchor=eqSum
+...
+$$</code></pre>
+
+<p>An anchor must be unique in the whole book, not only in its chapter.
+Use a prefix that tells the kind of element (<code>chap</code>, <code>sec</code>, <code>fig</code>, <code>lst</code>, <code>eq</code>): references then read well in the source.</p>
+
+<h3><span class="number">2.2</span> References</h3><a id="secReferences"></a>
+<p>A reference is the anchor name between <code>*@</code> and <code>@*</code>.
+Write the kind of element before it, since a reference shows only the number:</p>
+
+<pre><code>Chapter *@chapSyntax@* shows the syntax; Figure *@figPillar@* is the logo,
+Listing *@lstZinc@* loads Zinc, and this section is Section *@secReferences@*.</code></pre>
+
+<p>gives:</p>
+
+<p>Chapter <a href="chapSyntax.html#chapSyntax">1</a> shows the syntax; Figure <a href="chapSyntax.html#figPillar">1.1</a> is the logo,
+Listing <a href="chapSyntax.html#lstZinc">1.1</a> loads Zinc, and this section is Section <a href="#secReferences">2.2</a>.</p>
+
+<p>A reference works across chapters.
+On the web site, each chapter is its own page, so a reference to another chapter links to that page:
+the reference to Figure <a href="chapSyntax.html#figPillar">1.1</a> above leads to the first chapter.</p>
+
+<h3 id="how-numbers-are-given"><span class="number">2.3</span> How numbers are given</h3>
+<ul>
+<li>Chapters are numbered from 1; the text before the first chapter (the introduction of the book) is not numbered.</li>
+<li>Sections are numbered within their chapter: 2.1, 2.2, and subsections within their section: 2.1.1.</li>
+<li>Figures, listings and equations are numbered within their chapter, each kind on its own: Figure 1.1, Listing 1.1.</li>
+<li>A figure, listing or equation gets a number only when it has a caption or an anchor.
+A plain snippet stays unnumbered.</li>
+<li>An anchor after a header takes the number of that header.</li>
+</ul>
+<p>Tables cannot have an anchor yet.</p>
+
+<h3 id="checking-references"><span class="number">2.4</span> Checking references</h3>
+<p>A reference to an anchor that does not exist is not an error when the book is built:
+it simply shows no number.
+The reference checker of Chapter <a href="chapCheckers.html#chapCheckers">5</a> reports such references, as well as duplicated anchors.</p>
+
+      <nav class="pager" aria-label="Chapters">
+        <a class="previous" rel="prev" href="chapSyntax.html">← Microdown syntax</a>
+        <a class="next" rel="next" href="less-known-features.html">Less known features →</a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>The Pillar Super BOD Book Archetype Using Microdown · The Pillar team</p>
+  </footer>
+</body>
+</html>

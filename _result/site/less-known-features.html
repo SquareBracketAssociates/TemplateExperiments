@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-palette="sky">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,34 +23,44 @@
         <ol>
           
           <li>
-            <a href="microdown-syntax.html">Microdown syntax</a>
+            <a href="chapSyntax.html"><span class="number">1</span> Microdown syntax</a>
+            
+          </li>
+          
+          <li>
+            <a href="chapReferences.html"><span class="number">2</span> Anchors, references and numbers</a>
             
           </li>
           
           <li class="current">
-            <a href="less-known-features.html" aria-current="page">Less known features</a>
+            <a href="less-known-features.html" aria-current="page"><span class="number">3</span> Less known features</a>
             
             <ol>
               
-              <li><a href="#quote-blocks">Quote blocks</a></li>
+              <li><a href="#annotated-paragraphs"><span class="number">3.1</span> Annotated paragraphs</a></li>
               
-              <li><a href="#annotated-paragraphs">Annotated paragraphs</a></li>
+              <li><a href="#secMath"><span class="number">3.2</span> Mathematics</a></li>
               
-              <li><a href="#raw-html-paragraphs">Raw HTML paragraphs</a></li>
+              <li><a href="#raw-html-blocks"><span class="number">3.3</span> Raw HTML blocks</a></li>
               
-              <li><a href="#raw">Raw</a></li>
+              <li><a href="#raw-text"><span class="number">3.4</span> Raw text</a></li>
               
             </ol>
             
           </li>
           
           <li>
-            <a href="extensions.html">Extensions</a>
+            <a href="extensions.html"><span class="number">4</span> Extensions</a>
             
           </li>
           
           <li>
-            <a href="microdown-tools-checkers.html">Microdown tools: Checkers</a>
+            <a href="chapCheckers.html"><span class="number">5</span> Microdown tools: Checkers</a>
+            
+          </li>
+          
+          <li>
+            <a href="chapSite.html"><span class="number">6</span> Publishing a book as a web site</a>
             
           </li>
           
@@ -62,46 +72,58 @@
     <main id="content" class="page">
       
 
-<h2 id="less-known-features">Less known features</h2>
-<p>Microdown offers less used but sometimes important features.</p>
+<h2 id="less-known-features"><span class="number">3</span> Less known features</h2>
+<p>The elements of this chapter are used less often, but a book soon needs one of them.</p>
 
-<h3 id="quote-blocks">Quote blocks</h3><blockquote>Lines starting with <code>></code> are rendered in an indented manner.<br>At present the in-image rendering leaves something to be desired<br>But it works for now</blockquote>
-<p>Each source line, which is part of the quote block, needs to start with a <code>></code>.</p>
+<h3 id="annotated-paragraphs"><span class="number">3.1</span> Annotated paragraphs</h3>
+<p>An annotated paragraph is a quote whose first line is <code>&gt;[! label]</code>.
+It sets apart a note, a warning, or something to do:</p>
 
-<pre><code>> This is a quote block
-> written on multiple lines</code></pre>
-<q>This is a quote block<br>written on multiple lines</q>
-<p>The book style may redefine the quote environment to provide different visual feedback.</p>
+<pre><code>&gt;[! note]
+&gt; Annotated paragraphs are written like quotes.
 
-<h3 id="annotated-paragraphs">Annotated paragraphs</h3>
-<p>Microdown supports annotated paragraphs using <code>>[!</code> as follows:</p>
+&gt;[! important]
+&gt; Save your image before you load new code.</code></pre>
 
-<pre><code>>[! Important]
-> La libre communication des pensées et des opinions est un des droits les plus précieux de l'homme ; 
-> tout citoyen peut donc parler, écrire, imprimer librement, sauf à répondre de l'abus de cette liberté dans les cas déterminés par la loi.</code></pre>
+<q id="note">Annotated paragraphs are written like quotes.</q>
+<q id="important">Save your image before you load new code.</q>
+<q id="todo">Add an example with a long annotated paragraph.</q>
+<p>The labels <code>note</code>, <code>important</code> and <code>todo</code> are predefined.
+The web site gives a color to <code>note</code>, <code>important</code>, <code>tip</code> and <code>warning</code>; other labels are shown as notes.</p>
 
-<q id="important">La libre communication des pensées et des opinions est un des droits les plus précieux de l'homme ;<br>tout citoyen peut donc parler, écrire, imprimer librement, sauf à répondre de l'abus de cette liberté dans les cas déterminés par la loi.</q>
-<p>Three labels are defined by default: important, todo, and note. Anything else produces a note.</p>
+<h3><span class="number">3.2</span> Mathematics</h3><a id="secMath"></a>
+<p>Inline mathematics is written between <code>$</code>: <code>$x^2 + 1$</code>.
+An equation is enclosed between two <code>$$</code> lines and takes the same arguments as a figure:</p>
 
-<q id="note">La liberté consiste à pouvoir faire tout ce qui ne nuit pas à autrui :<br>ainsi, l'exercice des droits naturels de chaque homme n'a de bornes que celles<br>qui assurent aux autres membres de la société la jouissance de ces mêmes droits.<br>bornes ne peuvent être déterminées que par la loi.</q>
-<q id="todo">In the future we may introduce a parametrizable version of annotated paragraphs</q>
-<h3 id="raw-html-paragraphs">Raw HTML paragraphs</h3>
-<p>With recent versions of Microdown, you can embed top-level HTML blocks.</p>
+<pre><code>$$ % anchor=eqSum&amp;caption=The sum of the first integers.
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+$$</code></pre>
 
-<pre><code><address>
-kjlkjljlkj
-hkjhkjh
-<\address></code></pre>
+<p>The <code>%</code> starts the arguments.
+With its anchor, the equation is numbered and referred to as Equation <a href="#eqSum">3.1</a>.</p>
 
-<h3 id="raw">Raw</h3>
-<p>Microdown also supports the possibility to express raw text using <code>{{{</code> and <code>}}}</code>.</p>
+<q id="important">The PDF shows mathematics. The web site does not show it yet:
+the equation above and inline mathematics are missing from the HTML pages.</q>
+<h3 id="raw-html-blocks"><span class="number">3.3</span> Raw HTML blocks</h3>
+<p>An HTML element written at the start of a line is copied to the HTML output as is:</p>
 
-<pre><code>{{{**bold**}}}</code></pre>
+<pre><code>&lt;aside&gt;
+This aside is only on the web site.
+&lt;/aside&gt;</code></pre>
 
-<p>With raw, Microdown emits the text untouched so pay attention.</p>
+<aside>
+<p>This aside is only on the web site.</p>
+
+</aside>
+<p>Other formats ignore it, so keep such blocks for content that only makes sense on the web.</p>
+
+<h3 id="raw-text"><span class="number">3.4</span> Raw text</h3>
+<p>Text between <code>{{</code> and <code>}}</code> is not read as Microdown:
+<code>{{**not bold**}}</code> gives **not bold**.
+Use it, like the backslash, to show markup without applying it.</p>
 
       <nav class="pager" aria-label="Chapters">
-        <a class="previous" rel="prev" href="microdown-syntax.html">← Microdown syntax</a>
+        <a class="previous" rel="prev" href="chapReferences.html">← Anchors, references and numbers</a>
         <a class="next" rel="next" href="extensions.html">Extensions →</a>
       </nav>
     </main>
