@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Microdown syntax</title>
+  <meta name="description" content="">
+  <meta name="author" content="The Pillar team">
+  <link rel="stylesheet" href="_support/html/css/book.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to the text</a>
+
+  <header class="site-header">
+    <a class="site-name" href="index.html">The Pillar Super BOD Book Archetype Using Microdown</a>
+  </header>
+
+  <div class="layout">
+
+    <nav class="toc" aria-label="Table of contents">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          
+          <li class="current">
+            <a href="microdown-syntax.html" aria-current="page">Microdown syntax</a>
+            
+            <ol>
+              
+              <li><a href="#text-emphasis">Text emphasis</a></li>
+              
+              <li><a href="#links-and-figures">Links and Figures</a></li>
+              
+              <li><a href="#key-systematic-features">Key systematic features</a></li>
+              
+              <li><a href="#anchors-and-references">Anchors and References</a></li>
+              
+              <li><a href="#microdown-math">Microdown Math</a></li>
+              
+              <li><a href="#headers">Headers</a></li>
+              
+              <li><a href="#comments">Comments</a></li>
+              
+              <li><a href="#file-level-metadata">File-level Metadata</a></li>
+              
+              <li><a href="#unordered-lists">Unordered lists</a></li>
+              
+              <li><a href="#ordered-lists">Ordered lists</a></li>
+              
+              <li><a href="#mixed-lists">Mixed lists</a></li>
+              
+              <li><a href="#horizontal-lines">Horizontal lines</a></li>
+              
+              <li><a href="#code-blocks">Code blocks</a></li>
+              
+              <li><a href="#tables">Tables</a></li>
+              
+            </ol>
+            
+          </li>
+          
+          <li>
+            <a href="less-known-features.html">Less known features</a>
+            
+          </li>
+          
+          <li>
+            <a href="extensions.html">Extensions</a>
+            
+          </li>
+          
+          <li>
+            <a href="microdown-tools-checkers.html">Microdown tools: Checkers</a>
+            
+          </li>
+          
+        </ol>
+      </details>
+    </nav>
+
+
+    <main id="content" class="page">
+      
+
+<h2 id="microdown-syntax">Microdown syntax</h2>
+<p>The syntax covers two distinct categories - inline and paragraphs.</p>
+
+<ul>
+<li>Inline commands cover things like emphasis and links. The inline syntax is about elements inside paragraphs.</li>
+<li>Paragraphs are commands that span several lines of text (lists, code examples, etc). We often named them Bloc-level elements.</li>
+</ul>
+<h3 id="text-emphasis">Text emphasis</h3>
+<ul>
+<li><strong>bold</strong> is done by <code>**bold**</code> (You can get ** by <code>\**</code>)</li>
+<li><i>italics</i> is done by <code>_italics_</code></li>
+<li><strike>strike</strike> is done by <code>~strike~</code></li>
+<li><code>inline code</code> is done by   `inline code`</li>
+</ul>
+<h3 id="links-and-figures">Links and Figures</h3>
+<p><a target="_blank" href="https://pharo.org/">Link</a> is done as <code>[Link](https://Pharo.org)</code>.</p>
+
+<p>Figures are supported using the markdown idiomatic syntax: <code>![A caption](figures/pillar.png)</code>.<br>In books, figures are generally not in paragraphs but by placing them on a line by itself.<br>Figure <a href="#aFigAnchor">aFigAnchor</a>, in addition, specifies a size and an anchor as explained below.</p>
+
+<pre><code>![This is a caption. %width=50&anchor=aFigAnchor](figures/pillar.png)</code></pre>
+
+<p><figure id="aFigAnchor"><img src="Chapters/Chapter1/figures/pillar.png" alt="This is a caption. " style="width: 50%"><figcaption>This is a caption. </figcaption></img></figure></p>
+
+<p>Any anchor can be referred to using an anchor reference following this syntax: <code>*@anAnchor@*</code>.</p>
+
+<h3 id="key-systematic-features">Key systematic features</h3>
+<p>Microdown offers anchors and references. Most of anchors are expressed using bloc parameters.<br>So we present this basic feature first then show its usage.</p>
+
+<h4 id="bloc-parameters">Bloc parameters</h4>
+<p>Microdown has a generic way to manage arguments of elements. The syntax is <code>tag|key1=value1&key2=value2</code>.</p>
+
+<h3 id="anchors-and-references">Anchors and References</h3>
+<p>Microdown supports different anchors: at the heading level, math equations, and figures.</p>
+
+<h4 id="heading-anchors">Heading anchors</h4>
+<p><code>@anAnchor</code> starting a new line defines the anchor <code>anAnchor</code>. This type of anchor is a bloc-level element.</p>
+
+<h4 id="figures">Figures</h4>
+<p>As explained above we can define width and anchor delimited by <code>%</code>. Figure  <a href="#aFigAnchor">aFigAnchor</a> is defined as:</p>
+
+<pre><code>![This is a caption. %width=50&anchor=aFigAnchor](figures/pillar.png)</code></pre>
+
+<h4 id="equations">Equations</h4>
+<p>Using the same mechanism you can define a caption and an anchor of an equation.</p>
+
+<pre><code>$$ %anchor=frac&caption=The crazy equation
+\frac{1}{1+2}
+$$</code></pre>
+
+<h3 id="microdown-math">Microdown Math</h3>
+<p>Microdown supports both inline math using <code>$</code> and equation <code>$$</code></p>
+
+<ul>
+<li>Inline LaTeX is done using <code>$</code> as in <code>$x^2$</code> to produce .</li>
+<li>For equation, you should use <code>$$</code> as follows. The expression</li>
+</ul>
+<pre><code>$$ %anchor=frac
+\frac{1}{1+2}
+$$</code></pre>
+
+<p>produces a fraction. Notice the use of <code>%anchor=frac</code> to define metadata.</p>
+
+<h3 id="headers">Headers</h3>
+<p>Headers are done by lines starting with <code>#</code>. One <code>#</code> is the largest header, six <code>######</code> is the smallest header. The header text is written after the <code>#</code> signs.`</p>
+
+<h5 id="this-is-a-header-level-5-done-as-this-is-a-header-level-5">This is a header level 5, done as <code>##### This is a header level 5</code></h5>
+<h3 id="comments">Comments</h3>
+<p>It is possible to put comments in the Microdown source. Lines starting with <code>%</code> create a comment paragraph, but most tools ignore them.</p>
+
+<pre><code>% They really are ignored</code></pre>
+
+<h3 id="file-level-metadata">File-level Metadata</h3>
+<p>Microdown uses JSON to handle file-header metadata as shown after:</p>
+
+<pre><code>{
+"author" : "Stéphane Ducasse",
+"title" : "a cool documentation"
+}</code></pre>
+
+<h3 id="unordered-lists">Unordered lists</h3>
+<p>Unordered list are made by prefixing a line with '-' or <code>*</code>.</p>
+
+<ul>
+<li>item 1</li>
+<li>item 2</li>
+<li>It is possible to make a long item<br>with several lines of text by indenting the following lines <br>by 2 spaces (two!, not three or one or tab)</li>
+</ul>
+<h4 id="indented-lists">Indented lists</h4>
+<ul>
+<li>Item 1
+<ul>
+<li>by prefixing the <code>-</code> or <code>*</code> by two spaces, one indent the list by one level
+<ul>
+<li>Item 1.1.1</li>
+</ul></li>
+<li>Item 1.2</li>
+</ul></li>
+<li>Againg, the indentation is two spaces!<br>  * If you indent by say 4 spaces instead of two, it is just seen as a new line in the preceding bullet point</li>
+</ul>
+<h3 id="ordered-lists">Ordered lists</h3>
+<p>Ordered lists are done by prefixing a line with a digit followed by <code>.</code> or <code>)</code>.</p>
+
+<ol>
+<li>First item</li>
+<li>The numbers need not be in order, the rendering will start the numbering from one and increment</li>
+</ol>
+<h3 id="mixed-lists">Mixed lists</h3>
+<p>It is possible to mix the two types of lists</p>
+
+<ol>
+<li>This is first item, made using <code>1. This is first item</code>
+<ul>
+<li>sub item</li>
+<li>Indenting sublist is tricky, but the bullet (<code>*</code> or '-') must be matched up under the first letter in the line <code>This is the ...</code><br> In this case 3 spaces of indentation <code>1._</code></li>
+</ul></li>
+<li>Next numbered item</li>
+</ol>
+<h3 id="horizontal-lines">Horizontal lines</h3><hr></hr>
+<p>Are created by a single line starting with at least three <code>*</code> - this works: <code>***</code> as well as <code>*************</code></p>
+<hr></hr>
+<h3 id="code-blocks">Code blocks</h3>
+<p>To show code one use a triple backquote</p>
+
+<pre><code>  ```pharo
+	Metacello new
+		repository: 'github://svenvc/zinc/repository';
+		baseline: 'ZincHTTPComponents';
+ 		load.
+  ```</code></pre>
+
+<p>produces:</p>
+
+<pre><code>  Metacello new
+    repository: 'github://svenvc/zinc/repository';
+    baseline: 'ZincHTTPComponents';
+    load.</code></pre>
+
+<h4 id="predefind-language-modifiers">Predefind language modifiers</h4>
+<p>The <code>pharo</code> modifier used above is good for pharo expressions. Often one will show a full method,  and should use <code>method</code> to get a better highlighting and coloring of the method header.</p>
+
+<pre><code>  ```method
+    accept: aVisitor
+           ^ aVisitor visitCode: self
+  ```</code></pre>
+
+<p>produces:</p>
+
+<pre><code>accept: aVisitor
+ 	^ aVisitor visitCode: self</code></pre>
+
+<p>Plain unformatted text is made by using the <code>text</code> modifier, which will just print the body as is.</p>
+
+<pre><code>  ```text
+    accept: aVisitor
+           ^ aVisitor visitCode: self
+  ```</code></pre>
+
+<p>produces:</p>
+
+<pre><code>accept: aVisitor
+ 	^ aVisitor visitCode: self</code></pre>
+
+<h3 id="tables">Tables</h3>
+<p>It is possible to write tables in markup. These tables are intended to be short and not too wide. The cells of the tables can only be marked up with inline markup.</p>
+
+<pre><code>| Header1 | Header2 | Header 3 |
+| --- | ---- | --- |
+| cell 1 1 | cell 1 2 | cell 1 3 |
+| cell 2 1 | cell 2 2 | cell 2 3 |</code></pre>
+
+<p>produces:</p>
+
+<table>
+<tr><th>Header1</th><th>Header2</th><th>Header 3</th></tr>
+<tr><td>cell 1 1</td><td>cell 1 2</td><td>cell 1 3</td></tr>
+<tr><td>cell 2 1</td><td>cell 2 2</td><td>cell 2 3</td></tr>
+</table>
+<p><strong>Notice</strong>, unlike some other markdowns, Microdown requires lines to start with <code>|</code>.<br>There has to be at least the <code>---</code> in the line after the header.<br>Leaving out the second line merely produces a table without header highlighting.</p>
+
+<table>
+<tr><td>Header1</td><td>Header2</td><td>Header 3</td></tr>
+<tr><td>cell 1 1</td><td>cell 1 2</td><td>cell 1 3</td></tr>
+<tr><td>cell 2 1</td><td>cell 2 2</td><td>cell 2 3</td></tr>
+</table>
+      <nav class="pager" aria-label="Chapters">
+        <a class="previous" rel="prev" href="index.html">← The Pillar Super BOD Book Archetype Using Microdown</a>
+        <a class="next" rel="next" href="less-known-features.html">Less known features →</a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>The Pillar Super BOD Book Archetype Using Microdown · The Pillar team</p>
+  </footer>
+</body>
+</html>

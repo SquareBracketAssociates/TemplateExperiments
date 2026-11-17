@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Microdown tools: Checkers</title>
+  <meta name="description" content="">
+  <meta name="author" content="The Pillar team">
+  <link rel="stylesheet" href="_support/html/css/book.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to the text</a>
+
+  <header class="site-header">
+    <a class="site-name" href="index.html">The Pillar Super BOD Book Archetype Using Microdown</a>
+  </header>
+
+  <div class="layout">
+
+    <nav class="toc" aria-label="Table of contents">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          
+          <li>
+            <a href="microdown-syntax.html">Microdown syntax</a>
+            
+          </li>
+          
+          <li>
+            <a href="less-known-features.html">Less known features</a>
+            
+          </li>
+          
+          <li>
+            <a href="extensions.html">Extensions</a>
+            
+          </li>
+          
+          <li class="current">
+            <a href="microdown-tools-checkers.html" aria-current="page">Microdown tools: Checkers</a>
+            
+            <ol>
+              
+              <li><a href="#references">References</a></li>
+              
+              <li><a href="#code-snippet-validation">Code snippet validation</a></li>
+              
+              <li><a href="#version-drift-detection">Version drift detection</a></li>
+              
+              <li><a href="#an-architecture-to-plug-extra-analyses">An architecture to plug extra analyses.</a></li>
+              
+              <li><a href="#conclusion">Conclusion</a></li>
+              
+            </ol>
+            
+          </li>
+          
+        </ol>
+      </details>
+    </nav>
+
+
+    <main id="content" class="page">
+      
+
+<h2 id="microdown-tools-checkers">Microdown tools: Checkers</h2>
+<p>Microdown proposes several tools to help document writers. In this chapter, we present the one related to<br>book validation and the available checkers.</p>
+
+<p>Three kinds exist</p>
+
+<ul>
+<li>Reference. The checker checks for anchors and references.</li>
+<li>Code validation. The checker checks whether code snippets are correctly executed.</li>
+<li>Version validation. The checker checks whether the code snippet is the same as in Pharo.</li>
+</ul>
+<p>Note that other tools are under development such as the help to hide method body automatically so that writers can write manuals where readers should provide answers.</p>
+
+<h3 id="references">References</h3>
+<p>Microdown via the Pillar compilation chain offers the possibility to report:</p>
+
+<ul>
+<li>Duplicated anchors.</li>
+<li>References to unexisting anchors</li>
+<li>Unreferenced figures</li>
+<li>Missing figure files</li>
+<li>Missing input files</li>
+</ul>
+<p>Note that such verification takes into account section, figure, and equation anchors.</p>
+
+<p>Here is an extract of a report produced by the checker.</p>
+
+<pre><code>pillar referenceCheck index.md</code></pre>
+
+<pre><code>File index.md has reference problems.
+
+## Undefined input files:
+
+	Undefined file input: booklet-PharoVirtualMachine/Part2-JIT/CallingConventions/CallingConventions.md (in file /Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoBooks2/Booklet-PharoVirtualMachine/index.md) refer to file that does not exist.
+
+
+## Duplicated Anchors:
+
+	Anchor sec:references is duplicated in file: Booklet-PharoVirtualMachine/Part0-Preamble/1-ObjectStructure/objectStructure.md
+	Anchor sec:references is duplicated in file: PharoBooks2/Booklet-PharoVirtualMachine/Part0-Preamble/1-ObjectStructure/objectStructure.md
+
+
+## Undefined Anchors:
+
+	Anchor Ephemerons is undefined in file: /Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoBooks2/Booklet-PharoVirtualMachine/Part3-MemoryManagement/GarbageCollector/ephemerons.md
+	...
+
+## Unreferenced Figures
+
+	Figure 'figures/interpreter_variables.pdf' with anchor 'interpreterVariables' (in file /Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoBooks2/Booklet-PharoVirtualMachine/Part1-InterpreterAndBytecode/4-Interpreter/theInterpreter.md) is not referenced.
+	...</code></pre>
+
+<h3 id="code-snippet-validation">Code snippet validation</h3>
+<p>Microdown supports the automatic validation of code snippets.<br>The following snippets illustrate the points.</p>
+
+<p>Here the writer wants to make sure that the expression 3 + 4 returns the correct result 7. He tags the code and use the <code>>>></code> on a separate line.</p>
+
+<pre><code>    ```example=true
+	3 + 4 
+	>>> 7
+	```</code></pre>
+
+<p>He can also declare that a given expression is expected to cause a failure using the <code>expectedFailure</code> tag as follows.</p>
+
+<pre><code>```example=true&expectedFailure=true
+3 + 4 
+>>> 12		
+```	</code></pre>
+
+<h3 id="version-drift-detection">Version drift detection</h3>
+<p>As an author, you may copy and paste a method definition from a Pharo class to your book.<br>Then the natural question that arises is whether that copy is still valid in a more recent version of the system.</p>
+
+<p>Imagine that in class <code>A</code> you define the method <code>simpleCode</code>.</p>
+
+<pre><code>A>>simpleCode
+	"The comment of simpleCode"
+	
+	^ 100 slowFactorial</code></pre>
+
+<p>Imagine that you want to have this method definition in your document and that you want the checker to report if the method changes. You can do it using the <code>sync</code> key.</p>
+
+<pre><code>```sync=true&origin=MicMethodBodySyncTest>>#simpleCode
+simpleCode
+	"The comment of simpleCode"
+
+	^ 100 slowFactorial
+```</code></pre>
+
+<h3 id="an-architecture-to-plug-extra-analyses">An architecture to plug extra analyses.</h3>
+<p>Code blocks are often used to define extensions. The <code>MicCodeBlockValidator</code> defines a way to modularly define new analyses. To declare a new analysis is easy:</p>
+
+<ul>
+<li>You have to define a new class subclass of <code>MicBookTesterStrategy</code></li>
+<li>This class should define a method <code>verify:</code> expecting a code block.</li>
+<li>Define a class method named <code>handleKey</code> that returns the key of the extension (<code>#sync</code> in the previous example).</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>Microdown is more than a Markdown language. In addition, to be extensible and having nice features such as references or anchors,  it is a symbiotic markdown for Pharo. It gives authors of Pharo books a clear advantage with powerful extensions and tools that make them more efficient.</p>
+
+      <nav class="pager" aria-label="Chapters">
+        <a class="previous" rel="prev" href="extensions.html">← Extensions</a>
+        
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>The Pillar Super BOD Book Archetype Using Microdown · The Pillar team</p>
+  </footer>
+</body>
+</html>

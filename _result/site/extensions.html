@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Extensions</title>
+  <meta name="description" content="">
+  <meta name="author" content="The Pillar team">
+  <link rel="stylesheet" href="_support/html/css/book.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to the text</a>
+
+  <header class="site-header">
+    <a class="site-name" href="index.html">The Pillar Super BOD Book Archetype Using Microdown</a>
+  </header>
+
+  <div class="layout">
+
+    <nav class="toc" aria-label="Table of contents">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          
+          <li>
+            <a href="microdown-syntax.html">Microdown syntax</a>
+            
+          </li>
+          
+          <li>
+            <a href="less-known-features.html">Less known features</a>
+            
+          </li>
+          
+          <li class="current">
+            <a href="extensions.html" aria-current="page">Extensions</a>
+            
+            <ol>
+              
+              <li><a href="#microdown-inline-extensions">Microdown inline extensions</a></li>
+              
+              <li><a href="#microdown-paragraph-extensions">Microdown paragraph extensions</a></li>
+              
+              <li><a href="#possible-changes-in-future-versions">Possible changes in future versions</a></li>
+              
+            </ol>
+            
+          </li>
+          
+          <li>
+            <a href="microdown-tools-checkers.html">Microdown tools: Checkers</a>
+            
+          </li>
+          
+        </ol>
+      </details>
+    </nav>
+
+
+    <main id="content" class="page">
+      
+
+<h2 id="extensions">Extensions</h2>
+<p>Microdown proposes two kinds of extensions: inline and paragraph-level ones.</p>
+
+<h3 id="microdown-inline-extensions">Microdown inline extensions</h3>
+<p>There are potentially endless extensions one would like to add to Microdown. Rather than keep inventing new syntax, the generic syntax for inline syntax is:<br><code>{!extension|par1=value1&par2=value2&par3=value3!}</code>. What the extension does will typically depend on the visitor (LaTeX generation, Text generation, HTML generation, etc)</p>
+
+<p>Some extensions are already defined in the Microdown library:</p>
+
+<ul>
+<li><strong>footnote|note=some note which goes to the foot</strong>  - adds a footnote the the generated document</li>
+<li><strong>citation|ref=somewhere so others can find it</strong> - adds a reference to the generated document</li>
+</ul>
+<p>Note that each extension can define a default first key.<br>So <code>{!citation|ref=Duca99a}</code> can be expressed as <code>{!citation|Duca99a}</code>.</p>
+
+<h3 id="microdown-paragraph-extensions">Microdown paragraph extensions</h3>
+<p>Microdown offers a generic way to create new bloc-level elements. These can also be nested<br>and are close to LaTeX environments.<br>There are defined using <code><!tag|key1=value1&key2=value2!></code></p>
+
+<p>The most common use is the inputFile one: <code><!inputFile|path=uri!></code> inserts the contents of the microdown document at uri at this place.</p>
+
+<h3 id="possible-changes-in-future-versions">Possible changes in future versions</h3>
+<p>We are about to revise the syntax of the extension because it conflicts with the introduction of raw paragraphs. We are also considering adding element level meta data as in Kramdown. This should let users define HTML class at the node level.</p>
+
+      <nav class="pager" aria-label="Chapters">
+        <a class="previous" rel="prev" href="less-known-features.html">← Less known features</a>
+        <a class="next" rel="next" href="microdown-tools-checkers.html">Microdown tools: Checkers →</a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>The Pillar Super BOD Book Archetype Using Microdown · The Pillar team</p>
+  </footer>
+</body>
+</html>

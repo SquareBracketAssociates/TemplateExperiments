@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Less known features</title>
+  <meta name="description" content="">
+  <meta name="author" content="The Pillar team">
+  <link rel="stylesheet" href="_support/html/css/book.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to the text</a>
+
+  <header class="site-header">
+    <a class="site-name" href="index.html">The Pillar Super BOD Book Archetype Using Microdown</a>
+  </header>
+
+  <div class="layout">
+
+    <nav class="toc" aria-label="Table of contents">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          
+          <li>
+            <a href="microdown-syntax.html">Microdown syntax</a>
+            
+          </li>
+          
+          <li class="current">
+            <a href="less-known-features.html" aria-current="page">Less known features</a>
+            
+            <ol>
+              
+              <li><a href="#quote-blocks">Quote blocks</a></li>
+              
+              <li><a href="#annotated-paragraphs">Annotated paragraphs</a></li>
+              
+              <li><a href="#raw-html-paragraphs">Raw HTML paragraphs</a></li>
+              
+              <li><a href="#raw">Raw</a></li>
+              
+            </ol>
+            
+          </li>
+          
+          <li>
+            <a href="extensions.html">Extensions</a>
+            
+          </li>
+          
+          <li>
+            <a href="microdown-tools-checkers.html">Microdown tools: Checkers</a>
+            
+          </li>
+          
+        </ol>
+      </details>
+    </nav>
+
+
+    <main id="content" class="page">
+      
+
+<h2 id="less-known-features">Less known features</h2>
+<p>Microdown offers less used but sometimes important features.</p>
+
+<h3 id="quote-blocks">Quote blocks</h3><blockquote>Lines starting with <code>></code> are rendered in an indented manner.<br>At present the in-image rendering leaves something to be desired<br>But it works for now</blockquote>
+<p>Each source line, which is part of the quote block, needs to start with a <code>></code>.</p>
+
+<pre><code>> This is a quote block
+> written on multiple lines</code></pre>
+<q>This is a quote block<br>written on multiple lines</q>
+<p>The book style may redefine the quote environment to provide different visual feedback.</p>
+
+<h3 id="annotated-paragraphs">Annotated paragraphs</h3>
+<p>Microdown supports annotated paragraphs using <code>>[!</code> as follows:</p>
+
+<pre><code>>[! Important]
+> La libre communication des pensées et des opinions est un des droits les plus précieux de l'homme ; 
+> tout citoyen peut donc parler, écrire, imprimer librement, sauf à répondre de l'abus de cette liberté dans les cas déterminés par la loi.</code></pre>
+
+<q id="important">La libre communication des pensées et des opinions est un des droits les plus précieux de l'homme ;<br>tout citoyen peut donc parler, écrire, imprimer librement, sauf à répondre de l'abus de cette liberté dans les cas déterminés par la loi.</q>
+<p>Three labels are defined by default: important, todo, and note. Anything else produces a note.</p>
+
+<q id="note">La liberté consiste à pouvoir faire tout ce qui ne nuit pas à autrui :<br>ainsi, l'exercice des droits naturels de chaque homme n'a de bornes que celles<br>qui assurent aux autres membres de la société la jouissance de ces mêmes droits.<br>bornes ne peuvent être déterminées que par la loi.</q>
+<q id="todo">In the future we may introduce a parametrizable version of annotated paragraphs</q>
+<h3 id="raw-html-paragraphs">Raw HTML paragraphs</h3>
+<p>With recent versions of Microdown, you can embed top-level HTML blocks.</p>
+
+<pre><code><address>
+kjlkjljlkj
+hkjhkjh
+<\address></code></pre>
+
+<h3 id="raw">Raw</h3>
+<p>Microdown also supports the possibility to express raw text using <code>{{{</code> and <code>}}}</code>.</p>
+
+<pre><code>{{{**bold**}}}</code></pre>
+
+<p>With raw, Microdown emits the text untouched so pay attention.</p>
+
+      <nav class="pager" aria-label="Chapters">
+        <a class="previous" rel="prev" href="microdown-syntax.html">← Microdown syntax</a>
+        <a class="next" rel="next" href="extensions.html">Extensions →</a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>The Pillar Super BOD Book Archetype Using Microdown · The Pillar team</p>
+  </footer>
+</body>
+</html>
