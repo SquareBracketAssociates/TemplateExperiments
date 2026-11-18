@@ -1,0 +1,4 @@
+/Users/ducasse/Documents/Pharo/vms/130-x64/Pharo.app/Contents/MacOS/Pharo /Users/ducasse/Documents/Pharo/images/P13-ToTestRelease/P13-ToTestRelease.image clap pillar build site
+
+/Users/ducasse/Documents/Pharo/vms/130-x64/Pharo.app/Contents/MacOS/Pharo /Users/ducasse/Documents/Pharo/images/P13-ToTestRelease/P13-ToTestRelease.image clap pillar build pdf
+
